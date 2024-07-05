@@ -9,6 +9,7 @@ use App\Models\Admin\Athlete;
 use App\Models\Admin\Category;
 use App\Models\Admin\Championship;
 use App\Models\Admin\Game;
+use App\Models\Admin\GameDetail;
 use App\Models\Admin\Referee;
 use App\Models\Admin\Scorer;
 use Illuminate\Http\Request;
@@ -104,6 +105,7 @@ class GamesController extends Controller
     public function details($id)
     {
         $game = Game::find($id);
+        $game_details = GameDetail::where('game_id', $id)->first();
         $championship = Championship::find($game->championship_id);
         $category = Category::find($game->category_id);
         $referees = Referee::all();
@@ -111,8 +113,9 @@ class GamesController extends Controller
         $athletes_club_a = Functions::get_athetes($category, $game->club_a_id);
         $athletes_club_b = Functions::get_athetes($category, $game->club_b_id);
         $title = 'Detalhes de Jogos';
+        //dd($game_details->athlete_a_1);
 
-        return view('admin.games.details', compact('title','game', 'championship', 'category', 'referees', 'scorers', 'athletes_club_a', 'athletes_club_b'));
+        return view('admin.games.details', compact('title','game', 'championship', 'category', 'referees', 'scorers', 'athletes_club_a', 'athletes_club_b', 'game_details'));
     }
 
     public function save_details(Request $request, int $id)
@@ -120,7 +123,7 @@ class GamesController extends Controller
         $game = Game::find($id);
         $dataForm = $request->all();
 
-        $game_details = Functions::save_game_details($game, $dataForm);
+        $game_details = $this->save_game_details($game, $dataForm);
         $game->update([
             'status'        => 1,
             'referee_1_id'  => $dataForm['referee_1_id'],
@@ -180,5 +183,68 @@ class GamesController extends Controller
     public function getNextGameNumber($category_id){
         $games = Game::where('category_id', $category_id)->get();
         return count($games)+1;
+    }
+
+    public function save_game_details($game, $dataForm) {
+
+        $athletes_a = [];
+        $goals_a = 0;
+        for ($i = 0; $i < 10; ++$i) {
+            $athletes_a[$i]['athlete_id'] = $dataForm['athlete_a'][$i];
+            $athletes_a[$i]['goal'] =       $dataForm['goals_a'][$i];
+            $athletes_a[$i]['advt'] =       $dataForm['adv_a'][$i];
+            $athletes_a[$i]['blue'] =       $dataForm['blue_a'][$i];
+            $athletes_a[$i]['red']  =       $dataForm['red_a'][$i];
+            $goals_a+=$dataForm['goals_a'][$i];
+        }
+
+        $athletes_b = [];
+        $goals_b = 0;
+        for ($i = 0; $i < 10; ++$i) {
+            $athletes_b[$i]['athlete_id'] = $dataForm['athlete_b'][$i];
+            $athletes_b[$i]['goal'] =       $dataForm['goals_b'][$i];
+            $athletes_b[$i]['advt'] =       $dataForm['adv_b'][$i];
+            $athletes_b[$i]['blue'] =       $dataForm['blue_b'][$i];
+            $athletes_b[$i]['red']  =       $dataForm['red_b'][$i];
+            $goals_b+=$dataForm['goals_b'][$i];
+        }
+
+        GameDetail::updateOrCreate(
+            [ 'game_id'   => $game->id ],
+            [
+                'club_a_id' => $game->club_a_id,
+                'goals_a'   => $goals_a,
+                'club_b_id' => $game->club_b_id,
+                'goals_b'   => $goals_b,
+
+                'athlete_a_1'  => json_encode($athletes_a[0]),
+                'athlete_a_2'  => json_encode($athletes_a[1]),
+                'athlete_a_3'  => json_encode($athletes_a[2]),
+                'athlete_a_4'  => json_encode($athletes_a[3]),
+                'athlete_a_5'  => json_encode($athletes_a[4]),
+                'athlete_a_6'  => json_encode($athletes_a[5]),
+                'athlete_a_7'  => json_encode($athletes_a[6]),
+                'athlete_a_8'  => json_encode($athletes_a[7]),
+                'athlete_a_9'  => json_encode($athletes_a[8]),
+                'athlete_a_10' => json_encode($athletes_a[9]),
+
+                'athlete_b_1' => json_encode($athletes_b[0]),
+                'athlete_b_2' => json_encode($athletes_b[1]),
+                'athlete_b_3' => json_encode($athletes_b[2]),
+                'athlete_b_4' => json_encode($athletes_b[3]),
+                'athlete_b_5' => json_encode($athletes_b[4]),
+                'athlete_b_6' => json_encode($athletes_b[5]),
+                'athlete_b_7' => json_encode($athletes_b[6]),
+                'athlete_b_8' => json_encode($athletes_b[7]),
+                'athlete_b_9' => json_encode($athletes_b[8]),
+                'athlete_b_10'=> json_encode($athletes_b[9])
+            ]
+        );
+
+        return [
+            'goals_a' => $goals_a,
+            'goals_b' => $goals_b
+        ];
+
     }
 }

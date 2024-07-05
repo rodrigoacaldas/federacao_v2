@@ -16,7 +16,10 @@ class Game extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['championship_id', 'category_id', 'club_a_id', 'club_b_id', 'date', 'hour',
-        'had_finish', 'goals_a', 'goals_b', 'faults_a', 'faults_b', 'category_game_number'];
+        'had_finish',
+        'goals_a', 'goals_b', 'fouls_a', 'fouls_b',
+        'referee_1_id', 'referee_2_id', 'scorer_1_id', 'scorer_2_id',
+        'category_game_number'];
 
     public function modalities()
     {

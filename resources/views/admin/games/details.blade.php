@@ -14,8 +14,8 @@
                     </div>
                     <div class="card-body">
 
-                        <p><b>Time A:</b> {{$game->club_a->name}}</p>
-                        <p><b>Time B:</b> {{$game->club_b->name}}</p>
+                        <p><b>Time A:</b> {{$game->club_a->name}} <b>Gols: </b> {{$game->goals_a}}</p>
+                        <p><b>Time B:</b> {{$game->club_b->name}} <b>Gols: </b> {{$game->goals_b}}</p>
                         <p><b>Campeonato: </b>{{$championship->name}}</p>
                         <p><b>Categoria: </b>{{$category->name}}</p>
                         <p><b>Data: </b>{{$game->date}} <b>Hora:</b>{{$game->hour}} </p>
@@ -24,13 +24,13 @@
                         <div class="col-md-3">
                             <div class="position-relative form-group">
                                 <label for="fouls_a" class="font-weight-bold">Faltas time A  <span class="text-danger">*</span></label>
-                                <input class="form-control" name="fouls_a" type="number" value="0">
+                                <input class="form-control" name="fouls_a" type="number" value="{{$game->fouls_a}}">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="position-relative form-group">
                                 <label for="fouls_b" class="font-weight-bold">Faltas time B  <span class="text-danger">*</span></label>
-                                <input class="form-control" name="fouls_b" type="number" value="0">
+                                <input class="form-control" name="fouls_b" type="number" value="{{$game->fouls_b}}">
                             </div>
                         </div>
 
@@ -78,8 +78,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
 
         <div class="row">
@@ -101,32 +99,27 @@
                             </tr>
                             </thead>
 
+
                             <tbody>
                                 @php $positions = ['Goleiro 1', 'Goleiro 2', 'Avançado 1', 'Avançado 2', 'Avançado 3', 'Avançado 4', 'Avançado 5', 'Avançado 6', 'Avançado 7', 'Avançado 8'] @endphp
                                 @foreach($positions as $position)
-                                    <tr>
-                                        <td>{{$position}}</td>
 
+                                    @php $this_athete = json_decode($game_details->{'athlete_a_'.$loop->index+1}) @endphp
+                                    <tr>
+                                        <td> {{$position}} </td>
                                         <td>
                                             <select class="form-control" name="athlete_a[]" style="width: 100%">
                                                 <option value="" selected >Escolha um atleta</option>
+{{--                                                <option @if( (isset($game_details) && $game_details->athlete_a_1->athlete_id == $athlete_a->id) ) selected @endif>{{$athlete_a->name}}</option>--}}
                                                 @foreach($athletes_club_a as $athlete_a)
-                                                    <option value="{{$athlete_a->id}}" >{{$athlete_a->name}}</option>
+                                                    <option @if( $this_athete->athlete_id == $athlete_a->id) selected @endif value="{{$athlete_a->id}}" >{{$athlete_a->name}}</option>
                                                 @endforeach
                                             </select>
                                         </td>
-
-                                        <td> <input class="form-control" name="goals_a[]" type="number" value="0"> </td>
-
-                                        <td>
-                                            <input class="form-control" name="adv_a[]" type="number" value="0">
-                                        </td>
-                                        <td>
-                                            <input class="form-control" name="blue_a[]" type="number" value="0">
-                                        </td>
-                                        <td>
-                                            <input class="form-control" name="red_a[]" type="number" value="0">
-                                        </td>
+                                        <td> <input class="form-control" name="goals_a[]" type="number" value="{{$this_athete->goal }}"> </td>
+                                        <td> <input class="form-control" name="adv_a[]"   type="number" value="{{$this_athete->advt }}"> </td>
+                                        <td> <input class="form-control" name="blue_a[]"  type="number" value="{{$this_athete->blue }}"> </td>
+                                        <td> <input class="form-control" name="red_a[]"   type="number" value="{{$this_athete->red }}"> </td>
                                     </tr>
                                 @endforeach
 
@@ -158,27 +151,20 @@
                             @foreach($positions as $position)
                                 <tr>
                                     <td>{{$position}}</td>
-
+                                    @php $this_athete = json_decode($game_details->{'athlete_b_'.$loop->index+1}) @endphp
                                     <td>
                                         <select class="form-control" name="athlete_b[]" style="width: 100%">
                                             <option value="" selected >Escolha um atleta</option>
                                             @foreach($athletes_club_b as $athlete_b)
-                                                <option value="{{$athlete_b->id}}" >{{$athlete_b->name}}</option>
+                                                <option @if( $this_athete->athlete_id == $athlete_b->id) selected @endif value="{{$athlete_b->id}}" >{{$athlete_b->name}}</option>
                                             @endforeach
                                         </select>
                                     </td>
 
-                                    <td> <input class="form-control" name="goals_b[]" type="number" value=""> </td>
-
-                                    <td>
-                                        <input class="form-control" name="adv_b[]" type="number" value="">
-                                    </td>
-                                    <td>
-                                        <input class="form-control" name="blue_b[]" type="number" value="">
-                                    </td>
-                                    <td>
-                                        <input class="form-control" name="red_b[]" type="number" value="">
-                                    </td>
+                                    <td> <input class="form-control" name="goals_b[]" type="number" value="{{$this_athete->goal }}"> </td>
+                                    <td> <input class="form-control" name="adv_b[]"   type="number" value="{{$this_athete->advt }}"> </td>
+                                    <td> <input class="form-control" name="blue_b[]"  type="number" value="{{$this_athete->blue }}"> </td>
+                                    <td> <input class="form-control" name="red_b[]"   type="number" value="{{$this_athete->red }}"> </td>
                                 </tr>
                             @endforeach
 
