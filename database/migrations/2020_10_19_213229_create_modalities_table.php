@@ -18,7 +18,11 @@ class CreateModalitiesTable extends Migration
 
             $table->string('name')->unique();
             $table->string('slug')->nullable()->unique();
+            $table->text('description')->nullable();
             $table->string('logo')->nullable();
+            $table->string('header_image')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

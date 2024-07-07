@@ -37,11 +37,9 @@ class ModalityController extends Controller
 
     public function store(ModalityFormRequest $request)
     {
-        $dataForm = $request->all();
+        $dataFormWithFiles = $this->storeFiles($request);
 
-        $dataForm['logo']= $this->storeFile($request);
-
-        Modality::create($dataForm);
+        Modality::create($dataFormWithFiles);
 
         return redirect()->route('modalities.index')->withSuccess('Cadastrado com Sucesso');
     }
@@ -65,12 +63,9 @@ class ModalityController extends Controller
     public function update(Request $request,$id)
     {
         $modality = Modality::find($id);
-        $dataForm = $request->all();
+        $dataFormWithFiles = $this->storeFiles($request);
 
-        Storage::delete('/modalities/'.$modality->logo);
-        $dataForm['logo']= $this->storeFile($request);
-
-        $modality->update($dataForm);
+        $modality->update($dataFormWithFiles);
 
         return redirect()->route('modalities.index')->withSuccess('Modalidade editada com Sucesso');
     }
@@ -80,27 +75,32 @@ class ModalityController extends Controller
         //
     }
 
-    public function storeFile($request){
+    public function storeFiles($request){
+        $dataForm = $request->all();
+
         $full_path = 'storage/modalities/';
         File::ensureDirectoryExists($full_path);
 
-        $nameFile = null;
-        if( $request->hasFile('logo') && $request->file('logo')->isValid()) {
-            $nameFile = uniqid(date('hisYmd')) . '.webp';
+        $files = ['logo', 'header_image'];
 
-            $manager = new ImageManager(Driver::class);
-            $image = $manager->read($request->logo);
+        foreach ($files as $file){
+            $nameFile = null;
+            if( $request->hasFile('logo') && $request->file('logo')->isValid()) {
+                $nameFile = uniqid(date('hisYmd')) . '.webp';
 
-            if ($image->width() > $image->height()) {
-                $image->scale(width: 500);
-            } else {
-                $image->scale(height: 500);
+                $manager = new ImageManager(Driver::class);
+                $image = $manager->read($request->logo);
+
+                if ($image->width() > $image->height()) {
+                    $image->scale(width: 500);
+                } else {
+                    $image->scale(height: 500);
+                }
+                $image->toWebp(80)->save($full_path . $nameFile);
+                $dataForm["$file"] = $nameFile;
             }
-            $image->toWebp(80)->save($full_path . $nameFile);
-
-
         }
-        return $nameFile;
+        return $dataForm;
 
     }
 }

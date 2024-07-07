@@ -11,7 +11,7 @@ class Modality extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = ['name', 'logo'];
+    protected $fillable = ['name', 'logo', 'description' , 'header_image', 'phone', 'email'];
 
     public function clubs()
     {
