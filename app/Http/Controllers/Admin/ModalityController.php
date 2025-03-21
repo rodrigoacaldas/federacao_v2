@@ -84,19 +84,18 @@ class ModalityController extends Controller
         $files = ['logo', 'header_image'];
 
         foreach ($files as $file){
-            $nameFile = null;
-            if( $request->hasFile('logo') && $request->file('logo')->isValid()) {
+            if( $request->hasFile($file) && $request->file($file)->isValid()){
                 $nameFile = uniqid(date('hisYmd')) . '.webp';
 
                 $manager = new ImageManager(Driver::class);
-                $image = $manager->read($request->logo);
+                $image = $manager->read($request->$file);
 
                 if ($image->width() > $image->height()) {
                     $image->scale(width: 500);
                 } else {
                     $image->scale(height: 500);
                 }
-                $image->toWebp(80)->save($full_path . $nameFile);
+                $image->toWebp(80)->save($full_path.$nameFile);
                 $dataForm["$file"] = $nameFile;
             }
         }

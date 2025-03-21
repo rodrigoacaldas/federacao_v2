@@ -57,7 +57,7 @@ class ChampionshipController extends Controller
     public function edit($id)
     {
         $championship = Championship::find($id);
-        $title = 'Editando Campeonato '.$championship->nome;
+        $title = 'Editando Campeonato '.$championship->name;
         $modalities = Modality::all();
 
         return view('admin.championships.edit', compact('title','championship', 'modalities'));
@@ -68,7 +68,6 @@ class ChampionshipController extends Controller
         $championship = Championship::find($id);
 
         $dataFormWithFiles = $this->storeFiles($request);
-
         $championship->update($dataFormWithFiles);
 
         return redirect()->route('championships.index')->withSuccess('Modalidade editada com Sucesso');
@@ -88,6 +87,7 @@ class ChampionshipController extends Controller
         $files = ['logo', 'header_image'];
 
         foreach ($files as $file){
+
             if( $request->hasFile($file) && $request->file($file)->isValid()){
 
                 $nameFile = uniqid(date('hisYmd')).'.webp';
@@ -105,9 +105,7 @@ class ChampionshipController extends Controller
                 $dataForm["$file"] = $nameFile;
             }
         }
-
         return $dataForm;
-
     }
 
     public function details($id)

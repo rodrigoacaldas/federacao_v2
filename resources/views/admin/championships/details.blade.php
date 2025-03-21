@@ -42,7 +42,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr> <td class="text-center" colspan="3">Nenhum dado para mostrar</td> </tr>
+                            <tr> <td class="text-center" colspan="5">Nenhum dado para mostrar</td> </tr>
                         @endforelse
                         </tbody>
                     </table>

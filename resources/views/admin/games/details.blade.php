@@ -104,13 +104,13 @@
                                 @php $positions = ['Goleiro 1', 'Goleiro 2', 'Avançado 1', 'Avançado 2', 'Avançado 3', 'Avançado 4', 'Avançado 5', 'Avançado 6', 'Avançado 7', 'Avançado 8'] @endphp
                                 @foreach($positions as $position)
 
-                                    @php $this_athete = json_decode($game_details->{'athlete_a_'.$loop->index+1}) @endphp
+                                    @php $this_athete = json_decode($game->{'athlete_a_'.$loop->index+1}) @endphp
                                     <tr>
                                         <td> {{$position}} </td>
                                         <td>
                                             <select class="form-control" name="athlete_a[]" style="width: 100%">
                                                 <option value="" selected >Escolha um atleta</option>
-{{--                                                <option @if( (isset($game_details) && $game_details->athlete_a_1->athlete_id == $athlete_a->id) ) selected @endif>{{$athlete_a->name}}</option>--}}
+{{--                                                <option @if( (isset($game) && $game->athlete_a_1->athlete_id == $athlete_a->id) ) selected @endif>{{$athlete_a->name}}</option>--}}
                                                 @foreach($athletes_club_a as $athlete_a)
                                                     <option @if( $this_athete->athlete_id == $athlete_a->id) selected @endif value="{{$athlete_a->id}}" >{{$athlete_a->name}}</option>
                                                 @endforeach
@@ -151,7 +151,7 @@
                             @foreach($positions as $position)
                                 <tr>
                                     <td>{{$position}}</td>
-                                    @php $this_athete = json_decode($game_details->{'athlete_b_'.$loop->index+1}) @endphp
+                                    @php $this_athete = json_decode($game->{'athlete_b_'.$loop->index+1}) @endphp
                                     <td>
                                         <select class="form-control" name="athlete_b[]" style="width: 100%">
                                             <option value="" selected >Escolha um atleta</option>

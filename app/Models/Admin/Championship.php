@@ -13,7 +13,7 @@ class Championship extends Model
 
 
     protected $dates = ['deleted_at'];
-    protected $fillable = ['name','slug', 'logo', 'header_image', 'modality_id'];
+    protected $fillable = ['name','slug', 'logo', 'header_image', 'modality_id','status'];
 
     public function modality()
     {

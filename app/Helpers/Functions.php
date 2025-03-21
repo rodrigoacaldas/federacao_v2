@@ -52,7 +52,7 @@ class Functions
         return $newValue;
     }
 
-    public static function get_athetes($category, $club_id){
+    public static function get_athletes($category, $club_id){
 
         $age_max = null;
         if($category->age_max){
@@ -64,7 +64,7 @@ class Functions
             $age_min = Carbon::now()->subYear($category->age_min)->startOfYear();
         }
 
-        $athetes = Athlete::where('club_id', $club_id)
+        $athlete = Athlete::where('club_id', $club_id)
             ->when($age_max, function ($query) use ($age_max) {
                 return $query->where('birthday', '>', $age_max);
             })
@@ -72,11 +72,7 @@ class Functions
                 return $query->where('birthday', '<', $age_min);
             });
 
-        return $athetes->get();
+        return $athlete->get();
     }
-
-
-
-
 
 }

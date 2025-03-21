@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('slug')->nullable()->unique();
             $table->string('logo')->nullable();
             $table->string('header_image')->nullable();
+            $table->boolean('status')->default(1);
 
 
             $table->softDeletes();

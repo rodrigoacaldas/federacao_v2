@@ -78,6 +78,18 @@ class DatabaseSeeder extends Seeder
         ]);
         $club_b->modalities()->attach(1);
 
+        $club_c = Club::create([
+            'name'      => 'Escola Ismael PorDeus',
+            'image' => '',
+        ]);
+        $club_c->modalities()->attach(1);
+
+        $club_d = Club::create([
+            'name'      => 'Sporting Club',
+            'image' => '',
+        ]);
+        $club_d->modalities()->attach(1);
+
         $faker = Faker::create();
         //Adicionando Arbitro
         foreach (range(1, 10) as $index) {
@@ -112,6 +124,22 @@ class DatabaseSeeder extends Seeder
                 'birthday' => $faker->dateTimeBetween($startDate = '-40 years', $endDate = '-10 years'),
                 'email' => $faker->unique()->safeEmail,
                 'club_id' => 2
+            ]);
+        }
+        foreach (range(1, 20) as $index) {
+            Athlete::create([
+                'name' => $faker->name,
+                'birthday' => $faker->dateTimeBetween($startDate = '-40 years', $endDate = '-10 years'),
+                'email' => $faker->unique()->safeEmail,
+                'club_id' => 3
+            ]);
+        }
+        foreach (range(1, 20) as $index) {
+            Athlete::create([
+                'name' => $faker->name,
+                'birthday' => $faker->dateTimeBetween($startDate = '-40 years', $endDate = '-10 years'),
+                'email' => $faker->unique()->safeEmail,
+                'club_id' => 4
             ]);
         }
 

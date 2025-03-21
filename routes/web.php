@@ -54,7 +54,9 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 Route::namespace('Site')->group(function () {
 
     //Pagina inicial
-    Route::get('/', [SiteController::class, 'index']);
+    Route::get('/', [SiteController::class, 'index'])->name('site_home');
+    Route::get('/campeonatos/{id}', [SiteController::class, 'championship_details'])->name('site_championship_details');
+    Route::get('/modalidades/{id}', [SiteController::class, 'modality_details'])->name('site_modality_details');
 
 });
 

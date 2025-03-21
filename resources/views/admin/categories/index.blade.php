@@ -21,26 +21,26 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($categories as $championship)
+                @forelse($categories as $category)
                     <tr>
-                        <td> <img width="20" src="{{url('storage/categories/'.$championship->logo)}}" alt=""></td>
-                        <td>{{$championship->name}}</td>
-                        <td>{{$championship->description}}</td>
+                        <td> <img width="20" src="{{url('storage/categories/'.$category->logo)}}" alt=""></td>
+                        <td>{{$category->name}}</td>
+                        <td>{{$category->description}}</td>
                         <td>
-                            <a href="{{route('categories.details', $championship->id)}}">
+                            <a href="{{route('categories.details', $category->id)}}">
                                 <span class="btn btn-info btn-link btn-just-icon"><i class="fa fa-eye"></i> </span>
                             </a>
-                            <a href="{{route('categories.edit', $championship->id)}}">
+                            <a href="{{route('categories.edit', $category->id)}}">
                                 <span class="btn btn-success btn-link btn-just-icon"><i class="fa fa-edit"></i> </span>
                             </a>
-                            <a href="{{route('categories.show', $championship->id)}}">
+                            <a href="{{route('categories.show', $category->id)}}">
                                 <span class="btn btn-danger btn-link btn-just-icon"><i class="fa fa-trash"></i> </span>
                             </a>
 
                         </td>
                     </tr>
                 @empty
-                    <tr> <td class="text-center" colspan="3">Nenhum dado para mostrar</td> </tr>
+                    <tr> <td class="text-center" colspan="4">Nenhum dado para mostrar</td> </tr>
                 @endforelse
             </tbody>
         </table>

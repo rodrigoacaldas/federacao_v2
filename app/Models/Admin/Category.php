@@ -11,7 +11,11 @@ class Category extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['name', 'logo', 'championship_id', 'age_max', 'age_min'];
+    protected $fillable = [
+        'name', 'logo', 'championship_id',
+        'age_max', 'age_min',
+        'results', 'top_scorers'
+    ];
 
     public function clubs()
     {

@@ -44,6 +44,33 @@ return new class extends Migration
             $table->unsignedBigInteger('scorer_2_id')->nullable();
             $table->foreign('scorer_2_id')->references('id')->on('scorers');
 
+            $table->unsignedBigInteger('club_win_id')->nullable();
+            $table->foreign('club_win_id')->references('id')->on('clubs');
+            $table->unsignedBigInteger('club_lost_id')->nullable();
+            $table->foreign('club_lost_id')->references('id')->on('clubs');
+
+            $table->json('athlete_a_1')->nullable();
+            $table->json('athlete_a_2')->nullable();
+            $table->json('athlete_a_3')->nullable();
+            $table->json('athlete_a_4')->nullable();
+            $table->json('athlete_a_5')->nullable();
+            $table->json('athlete_a_6')->nullable();
+            $table->json('athlete_a_7')->nullable();
+            $table->json('athlete_a_8')->nullable();
+            $table->json('athlete_a_9')->nullable();
+            $table->json('athlete_a_10')->nullable();
+
+            $table->json('athlete_b_1')->nullable();
+            $table->json('athlete_b_2')->nullable();
+            $table->json('athlete_b_3')->nullable();
+            $table->json('athlete_b_4')->nullable();
+            $table->json('athlete_b_5')->nullable();
+            $table->json('athlete_b_6')->nullable();
+            $table->json('athlete_b_7')->nullable();
+            $table->json('athlete_b_8')->nullable();
+            $table->json('athlete_b_9')->nullable();
+            $table->json('athlete_b_10')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

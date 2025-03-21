@@ -21,6 +21,9 @@ return new class extends Migration
             $table->integer('age_min')->nullable();
             $table->foreignId('championship_id')->constrained();
 
+            $table->json('results')->default('{}');
+            $table->json('top_scorers')->default('{}');
+
             $table->softDeletes();
             $table->timestamps();
         });

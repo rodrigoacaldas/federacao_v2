@@ -15,7 +15,8 @@ class ChampionshipFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
+            'name'          => ['required'],
+            'modality_id'   => ['required'],
         ];
     }
 
@@ -23,6 +24,7 @@ class ChampionshipFormRequest extends FormRequest
     {
         return [
             'name.required'         => 'O campo Nome é obrigatório.',
+            'modality_id.required'         => 'É obrigatório escolher uma modalidade.',
         ];
     }
 }
