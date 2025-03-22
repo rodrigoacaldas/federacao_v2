@@ -2,7 +2,13 @@
     <div class="col-md-6">
         <div class="position-relative form-group">
             <label for="name" class="font-weight-bold">Nome</label>
-            <input name="name" id="name" placeholder="Nome do item" type="text" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{$club->name ?? old('name')}}">
+            <input name="name" id="name" placeholder="Nome do time" type="text" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{$club->name ?? old('name')}}">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="position-relative form-group">
+            <label for="slug" class="font-weight-bold">Abreviação</label>
+            <input name="slug" id="slug" placeholder="Abreviação do time" type="text" class="form-control {{ $errors->has('slug') ? ' is-invalid' : '' }}" value="{{$club->slug ?? old('slug')}}">
         </div>
     </div>
 </div>

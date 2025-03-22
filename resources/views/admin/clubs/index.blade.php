@@ -16,6 +16,7 @@
                 <tr>
                     <th>Logo</th>
                     <th>Nome</th>
+                    <th>Abreviação</th>
                     <th>Qtd Modalidades</th>
                     <th>Descrição</th>
                     <th>Ações</th>
@@ -26,6 +27,7 @@
                     <tr>
                         <td> <img width="20" src="{{url('storage/clubs/'.$club->image)}}" alt=""></td>
                         <td>{{$club->name}}</td>
+                        <td>{{$club->slug}}</td>
                         <td>{{count($club->modalities)}}</td>
                         <td>{{$club->description}}</td>
                         <td>

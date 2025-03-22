@@ -12,7 +12,7 @@ class Club extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['user_id', 'name', 'image'];
+    protected $fillable = ['user_id', 'name', 'image', 'slug'];
 
     public function modalities()
     {
