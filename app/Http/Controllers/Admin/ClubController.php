@@ -78,9 +78,10 @@ class ClubController extends Controller
         $dataForm = $request->all();
         $club = Club::find($id);
 
-        Storage::delete('/clubs/'.$club->image);
-        $dataForm['image']= $this->storeFile($request);
-
+        if(isset($dataForm['image'])){
+            Storage::delete('/clubs/'.$club->image);
+            $dataForm['image']= $this->storeFile($request);
+        }
         $club->update($dataForm);
         $club->modalities()->sync($dataForm['modalities']);
 
