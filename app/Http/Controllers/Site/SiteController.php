@@ -9,6 +9,7 @@ use App\Models\Admin\Game;
 use App\Models\Admin\Modality;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
+use App\Helpers\Matches;
 
 class SiteController extends Controller
 {
@@ -29,19 +30,11 @@ class SiteController extends Controller
     {
         $title = 'Homepage';
 
-        $next_match = Game::joins()
-            ->where('date','>',Carbon::now())
-            ->orderBy('date', 'desc')
-            ->orderBy('hour', 'asc')
-            ->first();
+        $next_matches = Matches::get_next_matches();
 
-        $last_matches = Game::joins()
-            ->where('games.status','1')
-            ->orderBy('date', 'desc')
-            ->orderBy('hour', 'asc')
-            ->get();
+        $last_matches = Matches::get_last_matches();
 
-        return view('site.home', compact('title', 'next_match', 'last_matches'));
+        return view('site.home', compact('title', 'next_matches', 'last_matches'));
     }
 
     public function championship_details($id)
@@ -50,21 +43,11 @@ class SiteController extends Controller
         $title = 'Detalhes do Campeonato '.$championship->name;
         $categories = Category::where('championship_id', $id)->get();
 
-        $next_match = Game::joins()
-            ->where('date','>',Carbon::now())
-            ->where('games.championship_id', $id)
-            ->orderBy('date', 'desc')
-            ->orderBy('hour', 'asc')
-            ->first();
+        $next_matches = Matches::get_next_matches($id);
 
-        $last_matches = Game::joins()
-            ->where('games.status','1')
-            ->where('games.championship_id', $id)
-            ->orderBy('date', 'desc')
-            ->orderBy('hour', 'asc')
-            ->get();
+        $last_matches = Matches::get_last_matches($id);
 
-        return view('site.championship_details', compact('title', 'championship','categories','next_match', 'last_matches'));
+        return view('site.championship_details', compact('title', 'championship','categories','next_matches', 'last_matches'));
     }
 
     public function modality_details($id)
@@ -75,4 +58,35 @@ class SiteController extends Controller
 
         return view('site.modality_details', compact('title', 'modality'));
     }
+    
+    public function contact()
+    {
+        $title = 'Entre em contato com a gente!';
+        $modalities = Modality::all();
+        return view('site.contact', compact('title', 'modalities'));
+    }
+
+    public function championship_category_all_games($championship_id, $category_id)
+    {
+        $championship = Championship::find($championship_id);
+        $category = Category::find($category_id);
+
+        $title = 'Campeonato: '.$championship->name;
+        $title2 = 'Todos os jogos da categoria '.$category->name;
+
+        $next_matches = Matches::get_next_matches($championship_id, 0, $category_id);
+        $last_matches = Matches::get_last_matches($championship_id, 0, $category_id);
+        $all_games = true;
+
+        return view('site.championship_category_all_matches', compact('title', 'title2', 'championship','category', 'next_matches', 'last_matches', 'all_games'));
+    }
+
+    public function championship_category_statistcs()
+    {
+        $title = 'Entre em contato com a gente!';
+        $modalities = Modality::all();
+        return view('site.contact', compact('title', 'modalities'));
+    }
+
+    
 }

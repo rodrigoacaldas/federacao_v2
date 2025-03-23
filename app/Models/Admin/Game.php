@@ -72,7 +72,8 @@ class Game extends Model
             ->join('modalities', 'modalities.id', 'championships.modality_id')
             ->select('games.*', 'categories.name as category_name','modalities.name as modality_name',
                 'championships.name as championship_name','championships.header_image as championship_image',
-                'club_a.name as club_a_name', 'club_a.image as club_a_image',
-                'club_b.name as club_b_name', 'club_b.image as club_b_image');
+                'club_a.name as club_a_name', 'club_a.image as club_a_image','club_a.slug as club_a_slug',
+                'club_b.name as club_b_name', 'club_b.image as club_b_image', 'club_b.slug as club_b_slug')
+            ->distinct();
     }
 }

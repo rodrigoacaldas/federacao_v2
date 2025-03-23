@@ -34,8 +34,8 @@
             <div class="d-inline-block d-md-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
 
             <ul class="site-menu js-clone-nav d-none d-md-block">
-                <li class="active"> <a href="index.html">Inicio</a> </li>
-                <li class="has-children">
+                <li @if(Request::segment(1) == '') class="active" @endif > <a href="/">Inicio</a> </li>
+                <li class="has-children @if(Request::segment(1) == 'modalidades') active @endif">
                     <a >Modalidades</a>
                     <ul class="dropdown arrow-top">
                         @foreach($modalities as $modality)
@@ -43,7 +43,7 @@
                         @endforeach
                     </ul>
                 </li>
-                <li class="has-children">
+                <li class="has-children @if(Request::segment(1) == 'campeonatos') active @endif">
                     <a >Campeonatos</a>
                     <ul class="dropdown arrow-top">
                         @foreach($modalities as $modality)
@@ -66,7 +66,7 @@
                         @endforeach
                     </ul>
                 </li>
-                <li><a href="contact.html">Contato</a></li>
+                <li  @if(Request::segment(1) == 'contato') class="active" @endif ><a href="{{route('contact')}}">Contato</a></li>
             </ul>
         </div>
     </nav>

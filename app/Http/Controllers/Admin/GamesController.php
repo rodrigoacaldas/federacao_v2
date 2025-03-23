@@ -323,8 +323,8 @@ class GamesController extends Controller
                 $results[$game->club_win_id]['victories']   = $results[$game->club_win_id]['victories']+1;
                 $results[$game->club_lost_id]['losts']       = $results[$game->club_lost_id]['losts']+1;
             } else {
-                $results[$game->club_a_id]['draw']  = $results[$game->club_a_id]['draw']+1;
-                $results[$game->club_b_id]['draw']  = $results[$game->club_b_id]['draw']+1;
+                $results[$game->club_a_id]['draws']  = $results[$game->club_a_id]['draws']+1;
+                $results[$game->club_b_id]['draws']  = $results[$game->club_b_id]['draws']+1;
             }
 
             $results[$game->club_a_id]['goals_for']         = $results[$game->club_a_id]['goals_for']+$game->goals_a;
@@ -344,7 +344,7 @@ class GamesController extends Controller
                     } else {
                         $athlete_from_db = Athlete::find($this_athlete->athlete_id);
                         $top_scorers[$this_athlete->athlete_id]['athlete_id']    = $this_athlete->athlete_id;
-                        $top_scorers[$this_athlete->athlete_id]['athlete_name']  = $athlete_from_db->athlete_name;
+                        $top_scorers[$this_athlete->athlete_id]['athlete_name']  = $athlete_from_db->name;
                         $top_scorers[$this_athlete->athlete_id]['goals']         = $this_athlete->goal;
                     }
 
@@ -372,7 +372,6 @@ class GamesController extends Controller
         usort($results,  array($this,'sortByPointsDesc'));
         usort($top_scorers,  array($this,'sortByGoals'));
 
-        dd($top_scorers);
         $category->update([
             'results'       => json_encode($results),
             'top_scorers'   => json_encode($top_scorers)

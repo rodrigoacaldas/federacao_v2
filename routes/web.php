@@ -56,7 +56,10 @@ Route::namespace('Site')->group(function () {
     //Pagina inicial
     Route::get('/', [SiteController::class, 'index'])->name('site_home');
     Route::get('/campeonatos/{id}', [SiteController::class, 'championship_details'])->name('site_championship_details');
+    Route::get('/campeonato/{championship_id}/categoria/{category_id}/jogos', [SiteController::class, 'championship_category_all_games'])->name('site_championship_category_all_games');
+    Route::get('/campeonato/{championship_id}/categoria/{category_id}/estastisticas', [SiteController::class, 'championship_category_statistcs'])->name('site_championship_category_statistcs');
     Route::get('/modalidades/{id}', [SiteController::class, 'modality_details'])->name('site_modality_details');
+    Route::get('/contato', [SiteController::class, 'contact'])->name('contact');
 
 });
 
