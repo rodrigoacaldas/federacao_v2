@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{{ config('app.name', 'Federação') }}.</title>
+    <title>{{ config('app.name', 'Federação') }}</title>
     <link rel="shortcut icon" href="{{url('assets/images/favicon.png')}}" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="{{url('site/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{url('site/css/owl.theme.default.min.css')}}">
 
+    <meta property="og:title" content="{{config('app.name')}}">
+    <meta property="og:description" content="{{$meta_description ?? 'Descrição do site'}}">
+    <meta property="og:image" content="{{$meta_image ?? 'Imagem do site'}}">
+    <meta property="og:url" content="{{$meta_url ?? 'URL do site'}}">
+    <meta property="og:type" content="website">
 
     <link rel="stylesheet" href="{{url('site/css/aos.css')}}">
 

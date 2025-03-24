@@ -85,7 +85,7 @@
                                     </table>
                                     <div class="text-center">
                                     <a href="{{route('site_championship_category_all_games',[$championship->id,$category->id])}}" class="btn btn-primary btn-sm rounded-0 py-3 px-3 mt-3">Todos os jogos {{$category->name}}</a>
-                                    <a href="{{route('site_championship_category_statistcs',[$championship->id,$category->id])}}" class="btn btn-primary btn-sm rounded-0 py-3 px-3 ml-2 mt-3">Estatisticas {{$category->name}}</a>
+                                    {{-- <a href="{{route('site_championship_category_statistcs',[$championship->id,$category->id])}}" class="btn btn-primary btn-sm rounded-0 py-3 px-3 ml-2 mt-3">Estatisticas {{$category->name}}</a> --}}
 
                                     </div>
                                 </div>

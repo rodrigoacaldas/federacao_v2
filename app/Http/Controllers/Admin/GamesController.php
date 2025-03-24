@@ -57,7 +57,7 @@ class GamesController extends Controller
         $dataFormComplete = $this->create_game_detail($dataForm);
         $game = Game::create($dataFormComplete);
 
-        return redirect()->route('categories.details', $dataForm['championship_id'])->withSuccess('Jogo cadastrado com Sucesso');
+        return redirect()->route('categories.details', $game->category_id)->withSuccess('Jogo cadastrado com Sucesso');
     }
 
     public function show(string $id)
@@ -83,7 +83,7 @@ class GamesController extends Controller
 
         $game->update($dataForm);
 
-        return redirect()->route('categories.details', $dataForm['championship_id'])->withSuccess('Jogo editado com Sucesso');
+        return redirect()->route('categories.details', $game->category_id)->withSuccess('Jogo editado com Sucesso');
     }
 
     public function destroy(string $id)

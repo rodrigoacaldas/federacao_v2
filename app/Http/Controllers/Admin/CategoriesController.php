@@ -46,7 +46,7 @@ class CategoriesController extends Controller
         $category = Category::create($dataForm);
         $category->clubs()->attach($dataForm['clubs']);
 
-        return redirect()->route('categories.details', $dataForm['championship_id'])->withSuccess('Categoria cadastrada com Sucesso');
+        return redirect()->route('categories.details', $category->id)->withSuccess('Categoria cadastrada com Sucesso');
     }
 
     public function show(string $id)

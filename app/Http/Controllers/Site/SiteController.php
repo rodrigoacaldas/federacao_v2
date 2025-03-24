@@ -47,7 +47,12 @@ class SiteController extends Controller
 
         $last_matches = Matches::get_last_matches($id);
 
-        return view('site.championship_details', compact('title', 'championship','categories','next_matches', 'last_matches'));
+        $meta_description = 'Campeonato '.$championship->name;
+        $meta_image = $championship->image;
+        $meta_url = url()->current();
+
+        return view('site.championship_details', compact('title', 'championship','categories','next_matches', 'last_matches',
+            'meta_description', 'meta_image', 'meta_url'));
     }
 
     public function modality_details($id)
