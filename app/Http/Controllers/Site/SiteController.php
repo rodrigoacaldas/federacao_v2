@@ -31,8 +31,11 @@ class SiteController extends Controller
         $title = 'Homepage';
 
         $next_matches = Matches::get_next_matches();
-
         $last_matches = Matches::get_last_matches();
+
+        $meta_description = 'Federação Cearense de Hoquei e Patinagem';
+        $meta_image = url('/assets/logo-nova.png');
+        $meta_url = url()->current();
 
         return view('site.home', compact('title', 'next_matches', 'last_matches'));
     }
@@ -44,11 +47,10 @@ class SiteController extends Controller
         $categories = Category::where('championship_id', $id)->get();
 
         $next_matches = Matches::get_next_matches($id);
-
         $last_matches = Matches::get_last_matches($id);
 
         $meta_description = 'Campeonato '.$championship->name;
-        $meta_image = $championship->image;
+        $meta_image = url('storage/championships/'.$championship->logo);
         $meta_url = url()->current();
 
         return view('site.championship_details', compact('title', 'championship','categories','next_matches', 'last_matches',

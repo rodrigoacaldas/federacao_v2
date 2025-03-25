@@ -297,6 +297,7 @@ class GamesController extends Controller
         foreach ($clubs as $club){
             $results[$club->id]['club_id']          = $club->id;
             $results[$club->id]['club_name']        = $club->name;
+            $results[$club->id]['club_slug']        = $club->slug;
             $results[$club->id]['points']           = 0;
             $results[$club->id]['games_played']     = 0;
             $results[$club->id]['victories']        = 0;
@@ -345,6 +346,7 @@ class GamesController extends Controller
                         $athlete_from_db = Athlete::find($this_athlete->athlete_id);
                         $top_scorers[$this_athlete->athlete_id]['athlete_id']    = $this_athlete->athlete_id;
                         $top_scorers[$this_athlete->athlete_id]['athlete_name']  = $athlete_from_db->name;
+                        $top_scorers[$this_athlete->athlete_id]['club_slug']     = $results[$game->club_a_id]['club_slug'];
                         $top_scorers[$this_athlete->athlete_id]['goals']         = $this_athlete->goal;
                     }
 
@@ -358,9 +360,10 @@ class GamesController extends Controller
                         $top_scorers[$this_athlete->athlete_id]['goals'] = $top_scorers[$this_athlete->athlete_id]['goals']+$this_athlete->goal;
                     } else {
                         $athlete_from_db = Athlete::find($this_athlete->athlete_id);
-                        $top_scorers[$this_athlete->athlete_id]['athlete_id'] = $this_athlete->athlete_id;
+                        $top_scorers[$this_athlete->athlete_id]['athlete_id']   = $this_athlete->athlete_id;
                         $top_scorers[$this_athlete->athlete_id]['athlete_name'] = $athlete_from_db->name;
-                        $top_scorers[$this_athlete->athlete_id]['goals'] = $this_athlete->goal;
+                        $top_scorers[$this_athlete->athlete_id]['club_slug']    = $results[$game->club_b_id]['club_slug'];
+                        $top_scorers[$this_athlete->athlete_id]['goals']        = $this_athlete->goal;
                     }
 
                 }

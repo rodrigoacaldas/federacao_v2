@@ -4,11 +4,11 @@
             <div class="row align-items-center ml-0 mr-0 py-4 match-entry" style="justify-content: center;">
                 <div class="col-12 mb-lg-0">
                     @if(isset($all_games))
-                        <p class="text-center font-weight-bold" style="margin-top: -15px;">Jogo {{$next_match->category_game_number}} &mdash; {{$next_match->date}} </p>
+                        <p class="text-center font-weight-bold" style="margin-top: -15px;">J{{$next_match->category_game_number}} &mdash; {{$next_match->date}} - {{$next_match->hour}} </p>
                     @else
                         <p class="text-center font-weight-bold">{{$next_match->modality_name}} &mdash; {{$next_match->championship_name}}</p>
                         <p class="text-center" style="margin-top: -15px;">{{$next_match->category_name}} &mdash; Jogo {{$next_match->category_game_number}} </p>
-                        <p class="text-center font-weight-bold" style="margin-top: -15px;">{{$next_match->date}} </p>
+                        <p class="text-center font-weight-bold" style="margin-top: -15px;">{{$next_match->date}} - {{$next_match->hour}} </p>
                     @endif
                 </div>
                 

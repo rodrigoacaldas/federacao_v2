@@ -70,14 +70,20 @@
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Jogador</th>
+                                                <th scope="col">Clube</th>
                                                 <th scope="col">Gols</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            
                                         @foreach(json_decode($category->top_scorers) as $top_scorer)
+                                            @if($loop->index == 5) 
+                                                @php break; @endphp; 
+                                            @endif
                                             <tr>
                                                 <th scope="row">{{$loop->index+1}}</th>
                                                 <td>{{$top_scorer->athlete_name}}</td>
+                                                <td>{{$top_scorer->club_slug}}</td>
                                                 <td>{{$top_scorer->goals}}</td>
                                             </tr>
                                         @endforeach
